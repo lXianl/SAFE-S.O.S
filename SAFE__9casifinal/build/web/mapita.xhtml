@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Menú Principal</title>
+            </f:facet>
+            <style type="text/css">
+                #frmMenuPrincipal{
+                    margin: 15px auto;
+                    width: 99%;               
+
+                }
+                #BUSCAR{
+                    width: 87%;
+
+
+                }
+                #eliminar{
+                    width: 87%;
+                }
+
+                body{
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-size: 13px;
+                    background-image:url("./recursos/imagenes/camino.jpg ")!important;
+                    background-size: cover;
+                }
+            </style>
+        </h:head>
+        <h:body>
+            <h:form id="frmMenuPrincipal" >
+
+                <p:messages id="messages" showDetail="true" 
+                            autoUpdate="true" 
+                            closable="true" />
+                <ui:include src="menu.xhtml"/>
+
+            </h:form> 
+
+
+            <p:layout style="min-width:400px;min-height:455px; ">
+
+                <p:layoutUnit position="west" size="200" header="Información" resizable="true" closable="true" collapsible="true">
+                    <h:form> 
+                        <p:dataScroller value="#{mapitaFormBeam.datos}" var="Datos" chunkSize="80">
+                            <f:facet name="header">
+                                Datos de Distancias
+                            </f:facet>
+
+                            <h:panelGrid columns="2" style="width:100% ;margin: 0 auto;" columnClasses="logo,detail"  >
+                                <p:graphicImage value="/recursos/imagenes/#{Datos.imagen}.png" width="20px" height="20px" /> 
+
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="2">
+                                        <h:outputText value="vertice:" />
+                                        <h:outputText value="#{Datos.vertice}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Distancia:" />
+                                        <h:outputText value="#{Datos.distancia}" style="font-weight: bold"/>
+
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                            <hr/>
+                        </p:dataScroller>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit  position="east" size="200" header="Buscar" resizable="true" closable="true" collapsible="true" effect="drop">
+
+                    <h:outputText value=" Cual es su destino:" style="font-weight: bold"/>
+                    <h:form id="mapita">
+
+                        <p:inputText value="#{MapitaFormBean.destino}" id="txtdestino"  /> 
+
+                    </h:form>
+
+                    <p:commandButton value="Ruta" 
+                                     id="BUSCAR"
+                                     icon=" ui-icon-search"
+
+                                     type="button" 
+                                     onclick="PF('dlg3').show();" /> 
+
+
+
+
+
+
+                    <h:outputText value=" cual camino desea eliminar:" style="font-weight: bold"/>
+                    <h:form id="camino">
+
+                        <p:inputText value="#{MapitaFormBean.destino}" id="txtcamino"  /> 
+
+                    </h:form>
+
+                    <p:commandButton value="ELIMINAR" 
+                                     id="eliminar"
+                                     icon="  ui-icon-trash"
+
+                                     type="button" 
+                                     onclick="PF('dlg4').show();" /> 
+
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center" size="500"   effect="20">
+
+
+                    <h:graphicImage value="/recursos/imagenes/mapita2.png" width="100%"/>
+
+
+                </p:layoutUnit>
+            </p:layout>
+            <p:dialog header="Ruta" 
+
+                      widgetVar="dlg3" 
+                      showEffect="explode"
+                      hideEffect="bounce"
+                      height="100">
+                <h:outputText value="El Camino Mas Corto Es :" />
+
+            </p:dialog>
+            <p:dialog header="Ruta" 
+
+                      widgetVar="dlg4" 
+                      showEffect="explode"
+                      hideEffect="bounce"
+                      height="100">
+                <h:outputText value="El Camino Mas Corto Es :"/>
+
+            </p:dialog>
+
+        </h:body>
+    </f:view>
+</html>
